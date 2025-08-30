@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All-in-One Tools Website</title>
+    <meta name="description" content="A collection of free online tools including unit converters, calculators, and PDF utilities.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f8ff;
+            color: #1a202c;
+        }
+        .section-container {
+            min-height: 80vh;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+        }
+        .section-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .section-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        }
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        input, select {
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+    <!-- Navbar -->
+    <nav class="gradient-bg text-white p-4 sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-xl font-bold rounded-lg p-2 hover:bg-white hover:text-blue-600 transition" onclick="showSection('home')">Tools Hub</a>
+            <div class="flex space-x-4">
+                <a href="#" class="rounded-lg p-2 hover:bg-white hover:text-blue-600 transition" onclick="showSection('converters')">Converters</a>
+                <a href="#" class="rounded-lg p-2 hover:bg-white hover:text-blue-600 transition" onclick="showSection('calculators')">Calculators</a>
+                <a href="#" class="rounded-lg p-2 hover:bg-white hover:text-blue-600 transition" onclick="showSection('pdf-tools')">PDF Tools</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Sections -->
+    <main class="container mx-auto p-4 flex-grow">
+        <!-- Home Section -->
+        <section id="home" class="section-container flex flex-col items-center justify-center p-8 bg-white rounded-xl shadow-lg mt-8">
+            <div class="text-center mb-8">
+                <h1 class="text-5xl font-extrabold text-center text-gray-800 mb-4">
+                    Welcome to the Tools Hub
+                </h1>
+                <p class="text-lg text-center text-gray-600 max-w-2xl mx-auto">
+                    Your one-stop destination for quick and reliable online tools. Find what you need in seconds.
+                </p>
+            </div>
+            <div class="w-full max-w-xl relative mb-8">
+                <input type="text" id="tool-search" placeholder="Search for a tool..." class="w-full p-4 pl-12 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </div>
+            <div id="tool-list" class="tool-grid w-full max-w-5xl">
+                <!-- Tool cards will be dynamically generated here -->
+            </div>
+        </section>
+
+        <!-- Converters Section -->
+        <section id="converters" class="hidden section-container p-8 bg-white rounded-xl shadow-lg mt-8">
+            <h2 class="text-4xl font-bold text-gray-800 mb-6 text-center">Unit Converters</h2>
+            <div class="tool-grid">
+                <!-- Length Converter -->
+                <div class="p-6 bg-gray-50 rounded-lg shadow-inner section-card">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Length</h3>
+                    <div class="space-y-4">
+                        <input type="number" id="length-input" placeholder="Enter value" class="w-full p-3 rounded-md border focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                        <select id="length-from" class="w-full p-3 rounded-md border focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                            <option value="m">Meters</option>
+                            <option value="km">Kilometers</option>
+                            <option value="cm">Centimeters</option>
+                            <option value="ft">Feet</option>
+                            <option value="in">Inches</option>
+                        </select>
+                        <select id="length-to" class="w-full p-3 rounded-md border focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                            <option value="m">Meters</option>
+                            <option value="km">Kilometers</option>
+                            <option value="cm">Centimeters</option>
+                            <option value="ft">Feet</option>
+                            <option value="in">Inches</option>
+                        </select>
+                        <div class="mt-4 p-3 bg-blue-100 rounded-md">Result: <span id="length-result" class="font-medium text-gray-800"></span></div>
+                    </div>
+                </div>
+                <!-- Weight Converter -->
+                <div class="p-6 bg-gray-50 rounded-lg shadow-inner section-card">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Weight</h3>
+                    <div class="space-y-4">
+                        <input type="number" id="weight-input" placeholder="Enter value" class="w-full p-3 rounded-md border focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                        <select id="weight-from" class="w-full p-3 rounded-md border focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                            <option value="kg">Kilograms</option>
+                            <option value="g">Grams</option>
+                            <option value="lb">Pounds</option>
+                            <option value="oz">Ounces</option>
+                        </select>
+                        <select id="weight-to" class="w-full p-3 rounded-md border focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                            <option value="kg">Kilograms</option>
+                            <option value="g">Grams</option>
+                            <option value="lb">Pounds</option>
+                            <option value="oz">Ounces</option>
+                        </select>
+                        <div class="mt-4 p-3 bg-blue-100 rounded-md">Result: <span id="weight-result" class="font-medium text-gray-800"></span></div>
+                    </div>
+                </div>
+                <!-- Temperature Converter -->
+                <div class="p-6 bg-gray-50 rounded-lg shadow-inner section-card">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Temperature</h3>
+                    <div class="space-y-4">
+                        <input type="number" id="temp-input" placeholder="Enter value" class="w-full p-3 rounded-md border focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                        <select id="temp-from" class="w-full p-3 rounded-md border focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                            <option value="C">Celsius</option>
+                            <option value="F">Fahrenheit</option>
+                            <option value="K">Kelvin</option>
+                        </select>
+                        <select id="temp-to" class="w-full p-3 rounded-md border focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                            <option value="C">Celsius</option>
+                            <option value="F">Fahrenheit</option>
+                            <option value="K">Kelvin</option>
+                        </select>
+                        <div class="mt-4 p-3 bg-blue-100 rounded-md">Result: <span id="temp-result" class="font-medium text-gray-800"></span></div>
+                    </div>
+                </div>
+                <!-- Currency Converter -->
+                <div class="p-6 bg-gray-50 rounded-lg shadow-inner section-card">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Currency (Static)</h3>
+                    <div class="space-y-4">
+                        <input type="number" id="currency-input" placeholder="Enter value" class="w-full p-3 rounded-md border focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                        <select id="currency-from" class="w-full p-3 rounded-md border focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                            <option value="USD">USD</option>
+                            <option value="EUR">EUR</option>
+                            <option value="GBP">GBP</option>
+                        </select>
+                        <select id="currency-to" class="w-full p-3 rounded-md border focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                            <option value="USD">USD</option>
+                            <option value="EUR">EUR</option>
+                            <option value="GBP">GBP</option>
+                        </select>
+                        <div class="mt-4 p-3 bg-blue-100 rounded-md">Result: <span id="currency-result" class="font-medium text-gray-800"></span></div>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-2">Note: This uses static conversion rates and does not reflect real-time market data.</p>
+                </div>
+                <!-- Area Converter -->
+                <div class="p-6 bg-gray-50 rounded-lg shadow-inner section-card">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Area</h3>
+                    <div class="space-y-4">
+                        <input type="number" id="area-input" placeholder="Enter value" class="w-full p-3 rounded-md border focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                        <select id="area-from" class="w-full p-3 rounded-md border focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                            <option value="sqm">Sq Meters</option>
+                            <option value="acre">Acres</option>
+                            <option value="sqft">Sq Feet</option>
+                        </select>
+                        <select id="area-to" class="w-full p-3 rounded-md border focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                            <option value="sqm">Sq Meters</option>
+                            <option value="acre">Acres</option>
+                            <option value="sqft">Sq Feet</option>
+                        </select>
+                        <div class="mt-4 p-3 bg-blue-100 rounded-md">Result: <span id="area-result" class="font-medium text-gray-800"></span></div>
+                    </div>
+                </div>
+                <!-- Volume Converter -->
+                <div class="p-6 bg-gray-50 rounded-lg shadow-inner section-card">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Volume</h3>
+                    <div class="space-y-4">
+                        <input type="number" id="volume-input" placeholder="Enter value" class="w-full p-3 rounded-md border focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                        <select id="volume-from" class="w-full p-3 rounded-md border focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                            <option value="l">Liters</option>
+                            <option value="gal">Gallons</option>
+                            <option value="cum">Cubic Meters</option>
+                        </select>
+                        <select id="volume-to" class="w-full p-3 rounded-md border focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                            <option value="l">Liters</option>
+                            <option value="gal">Gallons</option>
+                            <option value="cum">Cubic Meters</option>
+                        </select>
+                        <div class="mt-4 p-3 bg-blue-100 rounded-md">Result: <span id="volume-result" class="font-medium text-gray-800"></span></div>
+                    </div>
+                </div>
+                <!-- Time Converter -->
+                <div class="p-6 bg-gray-50 rounded-lg shadow-inner section-card">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Time</h3>
+                    <div class="space-y-4">
+                        <input type="number" id="time-input" placeholder="Enter value" class="w-full p-3 rounded-md border focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                        <select id="time-from" class="w-full p-3 rounded-md border focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                            <option value="s">Seconds</option>
+                            <option value="min">Minutes</option>
+                            <option value="hr">Hours</option>
+                            <option value="day">Days</option>
+                        </select>
+                        <select id="time-to" class="w-full p-3 rounded-md border focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                            <option value="s">Seconds</option>
+                            <option value="min">Minutes</option>
+                            <option value="hr">Hours</option>
+                            <option value="day">Days</option>
+                        </select>
+                        <div class="mt-4 p-3 bg-blue-100 rounded-md">Result: <span id="time-result" class="font-medium text-gray-800"></span></div>
+                    </div>
+                </div>
+            </div>
+            <!-- AdSense Placeholder -->
+            <div class="my-8 text-center p-4 bg-gray-200 rounded-lg">
+                <p class="text-gray-600">Google AdSense Ad Placeholder</p>
+            </div>
+        </section>
+
+        <!-- Calculators Section -->
+        <section id="calculators" class="hidden section-container p-8 bg-white rounded-xl shadow-lg mt-8">
+            <h2 class="text-4xl font-bold text-gray-800 mb-6 text-center">Calculators</h2>
+            <div class="tool-grid">
+                <div class="p-6 bg-gray-50 rounded-lg shadow-inner section-card">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Age Calculator</h3>
+                    <div class="space-y-4">
+                        <label for="birth-date" class="block text-gray-700 font-medium">Enter your birth date:</label>
+                        <input type="date" id="birth-date" class="w-full p-3 rounded-md border focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                        <button onclick="calculateAge()" class="w-full bg-blue-500 text-white font-semibold py-3 rounded-lg hover:bg-blue-600 transition">Calculate Age</button>
+                        <div class="mt-4 p-3 bg-blue-100 rounded-md">Your age: <span id="age-result" class="font-medium text-gray-800"></span></div>
+                    </div>
+                </div>
+                <div class="p-6 bg-gray-50 rounded-lg shadow-inner section-card">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">BMI Calculator</h3>
+                    <div class="space-y-4">
+                        <input type="number" id="bmi-weight" placeholder="Weight (kg)" class="w-full p-3 rounded-md border focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                        <input type="number" id="bmi-height" placeholder="Height (cm)" class="w-full p-3 rounded-md border focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                        <button onclick="calculateBMI()" class="w-full bg-blue-500 text-white font-semibold py-3 rounded-lg hover:bg-blue-600 transition">Calculate BMI</button>
+                        <div class="mt-4 p-3 bg-blue-100 rounded-md">BMI: <span id="bmi-result" class="font-medium text-gray-800"></span></div>
+                    </div>
+                </div>
+                <div class="p-6 bg-gray-50 rounded-lg shadow-inner section-card">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Percentage Calculator</h3>
+                    <div class="space-y-4">
+                        <p class="text-sm text-gray-700">What is <input type="number" id="percentage-value" class="w-24 p-2 rounded-md border focus:border-blue-500 focus:ring-2 focus:ring-blue-200"> % of <input type="number" id="percentage-of" class="w-24 p-2 rounded-md border focus:border-blue-500 focus:ring-2 focus:ring-blue-200">?</p>
+                        <button onclick="calculatePercentage()" class="w-full bg-blue-500 text-white font-semibold py-3 rounded-lg hover:bg-blue-600 transition">Calculate</button>
+                        <div class="mt-4 p-3 bg-blue-100 rounded-md">Result: <span id="percentage-result" class="font-medium text-gray-800"></span></div>
+                    </div>
+                </div>
+                <div class="p-6 bg-gray-50 rounded-lg shadow-inner section-card">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Loan EMI Calculator</h3>
+                    <div class="space-y-4">
+                        <input type="number" id="loan-amount" placeholder="Loan Amount" class="w-full p-3 rounded-md border focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                        <input type="number" id="loan-rate" placeholder="Annual Interest Rate (%)" class="w-full p-3 rounded-md border focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                        <input type="number" id="loan-tenure" placeholder="Loan Tenure (Years)" class="w-full p-3 rounded-md border focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                        <button onclick="calculateEMI()" class="w-full bg-blue-500 text-white font-semibold py-3 rounded-lg hover:bg-blue-600 transition">Calculate EMI</button>
+                        <div class="mt-4 p-3 bg-blue-100 rounded-md">EMI: <span id="emi-result" class="font-medium text-gray-800"></span></div>
+                    </div>
+                </div>
+            </div>
+            <!-- AdSense Placeholder -->
+            <div class="my-8 text-center p-4 bg-gray-200 rounded-lg">
+                <p class="text-gray-600">Google AdSense Ad Placeholder</p>
+            </div>
+        </section>
+
+        <!-- PDF Tools Section -->
+        <section id="pdf-tools" class="hidden section-container p-8 bg-white rounded-xl shadow-lg mt-8">
+            <h2 class="text-4xl font-bold text-gray-800 mb-6 text-center">PDF Tools</h2>
+            <div class="tool-grid">
+                <div class="p-6 bg-gray-50 rounded-lg shadow-inner section-card text-center">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">PDF to Word</h3>
+                    <p class="text-sm text-gray-500 mb-4">Convert your PDF file to a Word document.</p>
+                    <p class="text-red-500 font-bold">Note: This feature requires a server and cannot be done locally in the browser.</p>
+                </div>
+                <div class="p-6 bg-gray-50 rounded-lg shadow-inner section-card text-center">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Word to PDF</h3>
+                    <p class="text-sm text-gray-500 mb-4">Convert your Word document to a PDF file.</p>
+                    <p class="text-red-500 font-bold">Note: This feature requires a server and cannot be done locally in the browser.</p>
+                </div>
+                <div class="p-6 bg-gray-50 rounded-lg shadow-inner section-card text-center">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Image to PDF</h3>
+                    <p class="text-sm text-gray-500 mb-4">Convert an image file to a PDF file.</p>
+                    <p class="text-red-500 font-bold">Note: This feature requires a server and cannot be done locally in the browser.</p>
+                </div>
+            </div>
+            <!-- AdSense Placeholder -->
+            <div class="my-8 text-center p-4 bg-gray-200 rounded-lg">
+                <p class="text-gray-600">Google AdSense Ad Placeholder</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="gradient-bg text-white p-4 mt-8 text-center">
+        <p>&copy; 2025 Tools Hub. All Rights Reserved.</p>
+    </footer>
+
+    <!-- JavaScript for Functionality -->
+    <script>
+        // Data for tools to be displayed on the homepage and for search
+        const tools = [
+            { name: "Length Converter", section: "converters" },
+            { name: "Weight Converter", section: "converters" },
+            { name: "Temperature Converter", section: "converters" },
+            { name: "Currency Converter", section: "converters" },
+            { name: "Area Converter", section: "converters" },
+            { name: "Volume Converter", section: "converters" },
+            { name: "Time Converter", section: "converters" },
+            { name: "Age Calculator", section: "calculators" },
+            { name: "BMI Calculator", section: "calculators" },
+            { name: "Percentage Calculator", section: "calculators" },
+            { name: "Loan EMI Calculator", section: "calculators" },
+            { name: "PDF to Word", section: "pdf-tools" },
+            { name: "Word to PDF", section: "pdf-tools" },
+            { name: "Image to PDF", section: "pdf-tools" }
+        ];
+
+        // Function to show the selected section and hide others
+        function showSection(sectionId) {
+            document.querySelectorAll('section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            document.getElementById(sectionId).classList.remove('hidden');
+        }
+
+        // Function to render tool cards on the homepage
+        function renderToolCards(filteredTools = tools) {
+            const toolList = document.getElementById('tool-list');
+            toolList.innerHTML = '';
+            if (filteredTools.length === 0) {
+                toolList.innerHTML = '<p class="text-center text-gray-500 col-span-full">No tools found.</p>';
+                return;
+            }
+            filteredTools.forEach(tool => {
+                const toolCard = document.createElement('div');
+                toolCard.className = 'bg-blue-50 p-6 rounded-xl shadow-md cursor-pointer hover:bg-blue-100 transition transform hover:scale-105';
+                toolCard.onclick = () => showSection(tool.section);
+                toolCard.innerHTML = `<h3 class="text-lg font-bold text-gray-800">${tool.name}</h3>`;
+                toolList.appendChild(toolCard);
+            });
+        }
+
+        // Handle search functionality
+        document.getElementById('tool-search').addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const filteredTools = tools.filter(tool => tool.name.toLowerCase().includes(query));
+            renderToolCards(filteredTools);
+        });
+
+        // Initial rendering of homepage tools
+        renderToolCards();
+
+        // --- Converters Logic ---
+        // Length
+        const lengthInput = document.getElementById('length-input');
+        const lengthFrom = document.getElementById('length-from');
+        const lengthTo = document.getElementById('length-to');
+        const lengthResult = document.getElementById('length-result');
+        [lengthInput, lengthFrom, lengthTo].forEach(el => el.addEventListener('input', updateLength));
+        function updateLength() {
+            const val = parseFloat(lengthInput.value);
+            if (isNaN(val)) { lengthResult.textContent = ''; return; }
+            const fromUnit = lengthFrom.value;
+            const toUnit = lengthTo.value;
+            const conversions = {
+                'm': 1, 'km': 1000, 'cm': 0.01, 'ft': 0.3048, 'in': 0.0254
+            };
+            const result = (val * conversions[fromUnit]) / conversions[toUnit];
+            lengthResult.textContent = result.toFixed(4);
+        }
+
+        // Weight
+        const weightInput = document.getElementById('weight-input');
+        const weightFrom = document.getElementById('weight-from');
+        const weightTo = document.getElementById('weight-to');
+        const weightResult = document.getElementById('weight-result');
+        [weightInput, weightFrom, weightTo].forEach(el => el.addEventListener('input', updateWeight));
+        function updateWeight() {
+            const val = parseFloat(weightInput.value);
+            if (isNaN(val)) { weightResult.textContent = ''; return; }
+            const fromUnit = weightFrom.value;
+            const toUnit = weightTo.value;
+            const conversions = {
+                'kg': 1, 'g': 0.001, 'lb': 0.453592, 'oz': 0.0283495
+            };
+            const result = (val * conversions[fromUnit]) / conversions[toUnit];
+            weightResult.textContent = result.toFixed(4);
+        }
+
+        // Temperature
+        const tempInput = document.getElementById('temp-input');
+        const tempFrom = document.getElementById('temp-from');
+        const tempTo = document.getElementById('temp-to');
+        const tempResult = document.getElementById('temp-result');
+        [tempInput, tempFrom, tempTo].forEach(el => el.addEventListener('input', updateTemp));
+        function updateTemp() {
+            const val = parseFloat(tempInput.value);
+            if (isNaN(val)) { tempResult.textContent = ''; return; }
+            const fromUnit = tempFrom.value;
+            const toUnit = tempTo.value;
+            let result;
+            if (fromUnit === 'C' && toUnit === 'F') result = (val * 9/5) + 32;
+            else if (fromUnit === 'F' && toUnit === 'C') result = (val - 32) * 5/9;
+            else if (fromUnit === 'C' && toUnit === 'K') result = val + 273.15;
+            else if (fromUnit === 'K' && toUnit === 'C') result = val - 273.15;
+            else if (fromUnit === 'F' && toUnit === 'K') result = (val - 32) * 5/9 + 273.15;
+            else if (fromUnit === 'K' && toUnit === 'F') result = (val - 273.15) * 9/5 + 32;
+            else result = val;
+            tempResult.textContent = result.toFixed(2);
+        }
+
+        // Currency
+        const currencyInput = document.getElementById('currency-input');
+        const currencyFrom = document.getElementById('currency-from');
+        const currencyTo = document.getElementById('currency-to');
+        const currencyResult = document.getElementById('currency-result');
+        const currencyRates = { USD: 1, EUR: 0.92, GBP: 0.79 };
+        [currencyInput, currencyFrom, currencyTo].forEach(el => el.addEventListener('input', updateCurrency));
+        function updateCurrency() {
+            const val = parseFloat(currencyInput.value);
+            if (isNaN(val)) { currencyResult.textContent = ''; return; }
+            const fromRate = currencyRates[currencyFrom.value];
+            const toRate = currencyRates[currencyTo.value];
+            const result = (val / fromRate) * toRate;
+            currencyResult.textContent = result.toFixed(2);
+        }
+
+        // Area
+        const areaInput = document.getElementById('area-input');
+        const areaFrom = document.getElementById('area-from');
+        const areaTo = document.getElementById('area-to');
+        const areaResult = document.getElementById('area-result');
+        [areaInput, areaFrom, areaTo].forEach(el => el.addEventListener('input', updateArea));
+        function updateArea() {
+            const val = parseFloat(areaInput.value);
+            if (isNaN(val)) { areaResult.textContent = ''; return; }
+            const fromUnit = areaFrom.value;
+            const toUnit = areaTo.value;
+            const conversions = {
+                'sqm': 1, 'acre': 4046.86, 'sqft': 0.092903
+            };
+            const result = (val * conversions[fromUnit]) / conversions[toUnit];
+            areaResult.textContent = result.toFixed(4);
+        }
+        
+        // Volume
+        const volumeInput = document.getElementById('volume-input');
+        const volumeFrom = document.getElementById('volume-from');
+        const volumeTo = document.getElementById('volume-to');
+        const volumeResult = document.getElementById('volume-result');
+        [volumeInput, volumeFrom, volumeTo].forEach(el => el.addEventListener('input', updateVolume));
+        function updateVolume() {
+            const val = parseFloat(volumeInput.value);
+            if (isNaN(val)) { volumeResult.textContent = ''; return; }
+            const fromUnit = volumeFrom.value;
+            const toUnit = volumeTo.value;
+            const conversions = {
+                'l': 1, 'gal': 3.78541, 'cum': 1000
+            };
+            const result = (val * conversions[fromUnit]) / conversions[toUnit];
+            volumeResult.textContent = result.toFixed(4);
+        }
+
+        // Time
+        const timeInput = document.getElementById('time-input');
+        const timeFrom = document.getElementById('time-from');
+        const timeTo = document.getElementById('time-to');
+        const timeResult = document.getElementById('time-result');
+        [timeInput, timeFrom, timeTo].forEach(el => el.addEventListener('input', updateTime));
+        function updateTime() {
+            const val = parseFloat(timeInput.value);
+            if (isNaN(val)) { timeResult.textContent = ''; return; }
+            const fromUnit = timeFrom.value;
+            const toUnit = timeTo.value;
+            const conversions = {
+                's': 1, 'min': 60, 'hr': 3600, 'day': 86400
+            };
+            const result = (val * conversions[fromUnit]) / conversions[toUnit];
+            timeResult.textContent = result.toFixed(4);
+        }
+
+        // --- Calculators Logic ---
+        // Age Calculator
+        function calculateAge() {
+            const birthDate = new Date(document.getElementById('birth-date').value);
+            if (isNaN(birthDate)) {
+                document.getElementById('age-result').textContent = 'Please enter a valid date.';
+                return;
+            }
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const m = today.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            document.getElementById('age-result').textContent = age;
+        }
+
+        // BMI Calculator
+        function calculateBMI() {
+            const weight = parseFloat(document.getElementById('bmi-weight').value);
+            const height = parseFloat(document.getElementById('bmi-height').value);
+            if (isNaN(weight) || isNaN(height) || weight <= 0 || height <= 0) {
+                document.getElementById('bmi-result').textContent = 'Invalid input.';
+                return;
+            }
+            const bmi = weight / Math.pow(height / 100, 2);
+            let status = '';
+            if (bmi < 18.5) status = ' (Underweight)';
+            else if (bmi < 25) status = ' (Normal weight)';
+            else if (bmi < 30) status = ' (Overweight)';
+            else status = ' (Obese)';
+            document.getElementById('bmi-result').textContent = bmi.toFixed(2) + status;
+        }
+
+        // Percentage Calculator
+        function calculatePercentage() {
+            const value = parseFloat(document.getElementById('percentage-value').value);
+            const of = parseFloat(document.getElementById('percentage-of').value);
+            if (isNaN(value) || isNaN(of)) {
+                document.getElementById('percentage-result').textContent = 'Invalid input.';
+                return;
+            }
+            const result = (value / 100) * of;
+            document.getElementById('percentage-result').textContent = result.toFixed(2);
+        }
+
+        // Loan EMI Calculator
+        function calculateEMI() {
+            const P = parseFloat(document.getElementById('loan-amount').value);
+            const R = parseFloat(document.getElementById('loan-rate').value) / 100 / 12;
+            const N = parseFloat(document.getElementById('loan-tenure').value) * 12;
+            if (isNaN(P) || isNaN(R) || isNaN(N) || P <= 0 || R <= 0 || N <= 0) {
+                document.getElementById('emi-result').textContent = 'Invalid input.';
+                return;
+            }
+            const emi = P * R * (Math.pow(1 + R, N)) / (Math.pow(1 + R, N) - 1);
+            document.getElementById('emi-result').textContent = `₹${emi.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
